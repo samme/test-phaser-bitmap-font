@@ -2,37 +2,49 @@
 
   'use strict';
 
-  // fonts
-  var LIPSUM = "Lorem Ipsum is simply dummy text of the printing and\n" +
-    "typesetting industry. Lorem Ipsum has been the \n" +
-    "industry's standard dummy text ever since the 1500s,\n" +
-    "when an unknown printer took a galley of type and\n" +
-    "scrambled it to make a type specimen book.";
 
-  var Desyrel = {
-    name: 'desyrel',
-    spriteSheet: 'assets/desyrel.png',
-    data: 'assets/desyrel.xml',
-    size: 64
+  // constants
+  var Chicago = {
+    name: 'Chicago',
+    spriteSheet: 'assets/chicago-extended.png',
+    data: 'assets/chicago-extended.xml',
+    size: 12
   };
-  var Desdemona = {
-    name: 'Desdemona Pixels',
-    spriteSheet: 'assets/desdemona.png',
-    data: 'assets/desdemona.xml',
-    size: 8
-  };
+  var LIPSUM = "The quick brown fox jumps over the lazy dog." + "\n" +
+    "JUNK MTV QUIZ GRACED BY FOX WHELPS" + "\n" +
+    "sex-charged fop blew my junk tv quiz" + "\n" +
+    "The time is 16:48 o'clock." + "\n" +
+    "http://www.phaser.io" + "\n" +
+    ",.!?/:;'\"#_+=()%~*" + "\n" +
+    "\n" +
+    "Kerning:\n" +
+    "F. P. T. F, P, T, L'" + "\n" +
+    "Aj Bj Cj Dj Ej Fj Gj Hj Ij Jj Kj Lj Mj Nj Oj Pj Qj Rj Sj Tj Uj Vj Wj Xj Yj Zj" + "\n" +
+    "aj bj cj dj ej fj gj hj ij jj kj lj mj nj oj pj qj rj sj tj uj vj wj xj yj zj" + "\n" +
+    "\n" +
+    "Problematic characters:\n" +
+    "- Punctuation: ×÷±–…“”‘’" + "\n" +
+    "- Accented A's: àáâäåãāæ ÀÁÂÄÅÃĀÆ" + "\n" +
+    "- Accented E's: èéêëėęē ÈÉÊËĖĘĒ" + "\n" +
+    "- Accented I's: ìíîï ÌÍÎÏ" + "\n" +
+    "- Accented O's: òóôöøõōœ ÒÓÔÖØÕŌŒ" + "\n" +
+    "- Accented U's: ùúûüū ÙÚÛÜŪ" + "\n" +
+    "- Accented Y's and C's: ÿŸ çÇ";
+
 
   // vars
-  var _game, _textField, _currentFont;
+  var _game, _textField;
+
 
   // auto initialization
   init();
+
 
   // methods definitions
   function init() {
     // create game object
     _game = new Phaser.Game(
-      240, 160,
+      480, 320,
       Phaser.CANVAS,
       'gameCanvas',
       {
@@ -41,25 +53,22 @@
         update: update
       }
     );
-
-    // set font
-    _currentFont = Desdemona;
   }
 
   function preload() {
     _game.load.bitmapFont(
-      _currentFont.name,
-      _currentFont.spriteSheet,
-      _currentFont.data
+      Chicago.name,
+      Chicago.spriteSheet,
+      Chicago.data
     );
   }
 
   function create() {
     // set background color
-    _game.stage.backgroundColor = '#0072bc';
+    _game.stage.backgroundColor = '#141414';
 
     // scale the game
-    var scale = 3;
+    var scale = 2;
     _game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
     _game.scale.setUserScale(scale, scale);
 
@@ -68,7 +77,12 @@
     Phaser.Canvas.setImageRenderingCrisp(_game.canvas);
 
     // add textfield
-    _textField = _game.add.bitmapText(4, 48, _currentFont.name, LIPSUM, _currentFont.size);
+    _textField = _game.add.bitmapText(
+      16, 16, // x, y
+      Chicago.name,
+      LIPSUM,
+      Chicago.size
+    );
   }
 
   function update() {}
