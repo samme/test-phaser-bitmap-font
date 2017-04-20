@@ -43,15 +43,17 @@
   // methods definitions
   function init() {
     // create game object
-    _game = new Phaser.Game(
-      480, 320,
+    window.game = _game = new Phaser.Game(
+      480, 960,
       Phaser.CANVAS,
       'gameCanvas',
       {
         preload: preload,
         create: create,
         update: update
-      }
+      },
+      false,
+      false
     );
   }
 
@@ -83,6 +85,32 @@
       LIPSUM,
       Chicago.size
     );
+    
+    var chicagoFont = _game.cache.getBitmapFont('Chicago');
+    var chars = chicagoFont.font.chars;
+    var output = [];
+    var table = [];
+    
+    for (var charId in chars) {
+      // console.log(charId, String.fromCharCode(charId));
+      table[charId] = String.fromCharCode(charId);
+      output.push(charId + '=' + String.fromCharCode(charId));
+    }
+    
+    console.log('font.chars', chars);
+    console.table(table); // truncated @ 99
+    console.log('table', table);
+    
+    var bt = _game.add.bitmapText(16, 320, Chicago.name, output.join(' '), Chicago.size);
+    bt.maxWidth = 400;
+    
+    var txt = _game.add.text(16, 520, output.join(' '), {
+      fill: 'white',
+      font: '12px monospace',
+      wordWrap: true,
+      wordWrapWidth: 400
+    });
+    txt.smoothed = false;
   }
 
   function update() {}
